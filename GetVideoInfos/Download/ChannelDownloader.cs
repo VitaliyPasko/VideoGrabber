@@ -35,19 +35,6 @@ namespace GetVideoInfos.Download
             foreach (var item in channel.Items)
                 IdList.Add(item.Id.VideoId);
         }
-        public override void Download(List<string> idList, string channelTitle)
-        {
-            foreach (var id in idList)
-            {
-                Console.WriteLine("Awesome! Downloading...");
-                YouTubeVideo video = Service.GetVideo("https://youtube.com/watch?v=" + id);
-                var folder = GetDefaultFolder(channelTitle);
-                string path = Path.Combine(folder, video.FullName);
-                if (!Directory.Exists(folder))
-                    Directory.CreateDirectory(folder);
-
-                File.WriteAllBytes(path, video.GetBytes());
-            }
-        }
+        
     }
 }
