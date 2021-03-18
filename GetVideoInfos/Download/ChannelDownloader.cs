@@ -17,7 +17,7 @@ namespace GetVideoInfos.Download
         }
         public async Task DownLoad()
         {
-            string link = GetStringFoChannel();
+            string link = GetStringForChannel();
             var stringTask = HttpClient.GetStringAsync(link);
             string json = await stringTask;
             Channel.Channel channel = GetMediaObject(json);
@@ -25,19 +25,17 @@ namespace GetVideoInfos.Download
             ChannelTitle = channel.Items[0].Snippet.ChannelTitle;
             Download(IdList, ChannelTitle);
         }
-        public override string GetStringFoChannel() =>
+        public override string GetStringForChannel() =>
             $"https://www.googleapis.com/youtube/v3/search?key={GoogleApiKey}&channelId={_channelId}&part=snippet,id&order=date&maxResults=20";
         
-        private Channel.Channel GetMediaObject(string json)
-        {
-            Channel.Channel media = JsonSerializer.Deserialize<Channel.Channel>(json);
-            return media;
-        }
+        private Channel.Channel GetMediaObject(string json) => JsonSerializer.Deserialize<Channel.Channel>(json);
+
         private void InitializeIdListFromChannel(Channel.Channel channel)
         {
             foreach (var item in channel.Items)
                 IdList.Add(item.Id.VideoId);
         }
+        
         public override string GetDefaultFolder(string channelTitle)
         {
             var home = Environment.GetFolderPath(

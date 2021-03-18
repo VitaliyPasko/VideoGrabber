@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 namespace GetVideoInfos.Download
 {
     
-    public class DawnLoadManager
+    public class DownLoadManager
     {
         delegate Task DownloadVideosDelegate(string id);
 
         private readonly Dictionary<int, DownloadVideosDelegate> _dictionary;
-        public DawnLoadManager()
+        public DownLoadManager()
         {
             _dictionary = new Dictionary<int, DownloadVideosDelegate>
             {

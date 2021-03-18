@@ -7,7 +7,7 @@ namespace GetVideoInfos
     {
         static async Task Main(string[] args)
         {
-            DawnLoadManager manager = new DawnLoadManager();
+            DownLoadManager manager = new DownLoadManager();
             await manager.ChooseTypeAction();
         }
     }

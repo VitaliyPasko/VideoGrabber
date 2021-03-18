@@ -20,7 +20,7 @@ namespace GetVideoInfos.Download
             ChannelTitle = string.Empty;
             HttpClient = new HttpClient();
         }
-        public abstract string GetStringFoChannel();
+        public abstract string GetStringForChannel();
         public abstract string GetDefaultFolder(string channelTitle);
         public abstract void Download(List<string> idList, string channelTitle);
     }

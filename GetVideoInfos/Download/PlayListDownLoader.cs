@@ -16,7 +16,7 @@ namespace GetVideoInfos.Download
         }
         public async Task DownLoad()
         {
-            string link = GetStringFoChannel();
+            string link = GetStringForChannel();
             var stringTask = HttpClient.GetStringAsync(link);
             string json = await stringTask;
             PlayList.PlayList playList = GetMediaObject(json);
@@ -25,14 +25,10 @@ namespace GetVideoInfos.Download
             Download(IdList, ChannelTitle);
         }
 
-        public override string GetStringFoChannel() =>
+        public override string GetStringForChannel() =>
             $"https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId={_playlistId}&maxResults=50&key={GoogleApiKey}";
         
-        private PlayList.PlayList GetMediaObject(string json)
-        {
-            PlayList.PlayList media = JsonSerializer.Deserialize<PlayList.PlayList>(json);
-            return media;
-        }
+        private PlayList.PlayList GetMediaObject(string json) => JsonSerializer.Deserialize<PlayList.PlayList>(json);
 
         private void InitializeIdListFromPlayList(PlayList.PlayList playList)
         {
