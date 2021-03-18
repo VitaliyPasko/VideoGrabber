@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace GetVideoInfos.Download
 {
-    
     public class DownLoadManager
     {
         delegate Task DownloadVideosDelegate(string id);
@@ -18,21 +18,35 @@ namespace GetVideoInfos.Download
                 {2, StartDownloadingFromPlayList}
             };
         }
+        
         public async Task ChooseTypeAction()
         {
-            string inputOp = UserInput("Качаем все видео с канала - 1\n" +
-                                     "Качаем все видосы с плейлиста - 2");
-            bool isNum = int.TryParse(inputOp, out int typeOp);
-            if (isNum)
+            try
             {
-                if (_dictionary.ContainsKey(typeOp))
+                string inputOp = UserInput("Качаем все видео с канала - 1\n" +
+                                           "Качаем все видосы с плейлиста - 2");
+                bool isNum = int.TryParse(inputOp, out int typeOp);
+                if (isNum && _dictionary.ContainsKey(typeOp))
                 {
                     string id = UserInput("Введите id:");
                     await _dictionary[typeOp].Invoke(id);
+                
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Не верная команда, давай по-новой...");
+                    Console.ResetColor();
+                    await ChooseTypeAction();
                 }
             }
-            else
-               await ChooseTypeAction();
+            catch (HttpRequestException)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Не верный id");
+                Console.ResetColor();
+                await ChooseTypeAction();
+            }
         }
         
         private string UserInput(string message)

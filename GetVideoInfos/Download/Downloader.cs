@@ -22,15 +22,16 @@ namespace GetVideoInfos.Download
             HttpClient = new HttpClient();
         }
         public abstract string GetStringForChannel();
+        
         protected void Download(List<string> idList, string channelTitle)
         {
             int videosCount = idList.Count;
-            int i = 1;
+            int num = 1;
             Console.WriteLine($"Количество видео для скачивания: {videosCount}");
             foreach (var id in idList)
             {
                 YouTubeVideo video = _service.GetVideo("https://youtube.com/watch?v=" + id);
-                Console.WriteLine($"{i++} {video.FullName}. Id = {id}");
+                Console.WriteLine($"{num++} {video.FullName}. Id = {id}");
                 var folder = GetDefaultFolder(channelTitle);
                 string path = Path.Combine(folder, video.FullName);
                 if (!Directory.Exists(folder))

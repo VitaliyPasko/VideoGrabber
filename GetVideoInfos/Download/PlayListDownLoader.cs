@@ -1,9 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Text.Json;
 using System.Threading.Tasks;
-using VideoLibrary;
 
 namespace GetVideoInfos.Download
 {
@@ -14,6 +10,7 @@ namespace GetVideoInfos.Download
         {
             _playlistId = playlistId;
         }
+        
         public async Task DownLoad()
         {
             string link = GetStringForChannel();
