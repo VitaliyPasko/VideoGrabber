@@ -30,7 +30,6 @@ namespace GetVideoInfos.Download
                 {
                     string id = UserInput("Введите id:");
                     await _dictionary[typeOp].Invoke(id);
-                
                 }
                 else
                 {
@@ -43,7 +42,7 @@ namespace GetVideoInfos.Download
             catch (HttpRequestException)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Не верный id");
+                Console.WriteLine("Не верный id или нет подключения к интернету");
                 Console.ResetColor();
                 await ChooseTypeAction();
             }
