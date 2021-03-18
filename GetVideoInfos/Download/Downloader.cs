@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net.Http;
 using VideoLibrary;
 
@@ -21,7 +22,13 @@ namespace GetVideoInfos.Download
             HttpClient = new HttpClient();
         }
         public abstract string GetStringForChannel();
-        public abstract string GetDefaultFolder(string channelTitle);
         public abstract void Download(List<string> idList, string channelTitle);
+        protected string GetDefaultFolder(string channelTitle)
+        {
+            var home = Environment.GetFolderPath(
+                Environment.SpecialFolder.UserProfile);
+            return Path.Combine(home, $"Downloads/{channelTitle}");
+        }
+        
     }
 }

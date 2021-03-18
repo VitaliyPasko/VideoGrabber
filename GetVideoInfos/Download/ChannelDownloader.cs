@@ -35,13 +35,6 @@ namespace GetVideoInfos.Download
             foreach (var item in channel.Items)
                 IdList.Add(item.Id.VideoId);
         }
-        
-        public override string GetDefaultFolder(string channelTitle)
-        {
-            var home = Environment.GetFolderPath(
-                Environment.SpecialFolder.UserProfile);
-            return Path.Combine(home, $"Downloads/{channelTitle}");
-        }
         public override void Download(List<string> idList, string channelTitle)
         {
             foreach (var id in idList)
