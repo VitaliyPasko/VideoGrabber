@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using GetVideoInfos.Enums;
+using GetVideoInfos.Helpers;
 
 namespace GetVideoInfos.Download
 {
@@ -34,7 +36,7 @@ namespace GetVideoInfos.Download
                 else
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Не верная команда, давай по-новой...");
+                    Console.WriteLine(ErrorEnum.WrongOperation.GetEnumDescription());
                     Console.ResetColor();
                     await ChooseTypeAction();
                 }
@@ -42,7 +44,7 @@ namespace GetVideoInfos.Download
             catch (HttpRequestException)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Не верный id или нет подключения к интернету");
+                Console.WriteLine(ErrorEnum.WrongId.GetEnumDescription());
                 Console.ResetColor();
                 await ChooseTypeAction();
             }
